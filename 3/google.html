@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>JR Marqueurs</title>
+    <title>Markers Jean Rostand</title>
     <link rel="stylesheet" type="text/css" href="google.css">
+    <style>
+        /* Ajout d'un style pour la hauteur de la carte */
+        #map {
+            height: 500px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>MARQUEURS JEAN ROSTAND</h1>
+<h1>MARQUERS JEAN ROSTAND</h1>
 <hr>
 <div id="map"></div>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap" async defer></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
     var map;
@@ -21,40 +24,51 @@
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 48.9593, lng: 2.5478 }, 
+            center: { lat: 48.9593, lng: 2.5478 },
             zoom: 15
         });
 
-        loadDoc();
+        loadMarkers();
     }
 
-    function loadDoc() {
-        $.ajax({
-            url: "markersJrostand.json", 
-            method: "GET",
-            dataType: "json",
-            success: function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    var markerData = data[i];
+    function loadMarkers() {
+        fetch("markersJrostand.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erreur réseau : " + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const infowindow = new google.maps.InfoWindow(); // Création de l'InfoWindow
+
+                // Boucle pour créer les marqueurs
+                data.forEach(markerData => {
                     var latLng = new google.maps.LatLng(markerData.lat, markerData.lng);
 
-                    // Créer un marqueur
                     var googleMarker = new google.maps.Marker({
                         position: latLng,
-                        map: map
+                        map: map,
+                        title: markerData.title // Titre pour l'InfoWindow
                     });
+
+                    // Écouteur d'événement pour afficher l'InfoWindow sur clic
+                    googleMarker.addListener('click', function() {
+                        var contentString = 
+                            '<div id="content">' +
+                            '<h4 id="firstHeading" class="firstHeading">' + this.title + '</h4>' ;
+                            if (markerData.image) {
+                            contentString += '<img src="' + markerData.image + '" alt="' + this.title + '" style="width:400px; height:auto;"/>';
+                        }
+                        
+                        infowindow.setContent(contentString); // Définir le contenu de l'InfoWindow
+                        infowindow.open(map, this); // Ouvrir l'InfoWindow
+                    });
+
                     markers.push(googleMarker);
                     polylinePath.push(latLng);
+                });
 
-                    // Ajouter un événement 'click' au marqueur
-                    (function(marker, index) {
-                        google.maps.event.addListener(marker, 'click', function() {
-                            alert("Vous avez cliqué sur le marqueur " + (index + 1) + " à la position : Lat " + marker.getPosition().lat() + ", Lng " + marker.getPosition().lng());
-                        });
-                    })(googleMarker, i); // Utilisation d'une IIFE pour gérer la fermeture (closure)
-                }
-
-                // Tracer la polyligne reliant les marqueurs
                 var polyline = new google.maps.Polyline({
                     path: polylinePath,
                     geodesic: true,
@@ -64,13 +78,14 @@
                 });
 
                 polyline.setMap(map);
-            },
-            error: function(xhr, status, error) {
-                console.error("Erreur lors du chargement des données JSON:", error);
-            }
-        });
+            })
+            .catch(error => {
+                console.error("Erreur lors du chargement des données JSON :", error);
+            });
     }
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Y32T_PJHZxYcK3BJYJFNwSl6cuvLXpo&callback=initMap" async defer></script>
 
 </body>
 </html>

@@ -1,26 +1,35 @@
 [
     {
       "lat": 48.95930033308523,
-      "lng": 2.5477890651742516
+      "lng": 2.5477890651742516,
+      "title": "Lieu 1 : Collège Les Mousseaux 93420 Villepinte. Collège les Mousseaux est une institution scolaire engagée à offrir une éducation de qualité à tous les élèves, sans exception. Notre équipe pédagogique, composée d'enseignants expérimentés et dévoués, travaille en étroite collaboration pour créer un environnement d'apprentissage stimulant et inclusif. Nous sommes fiers de notre programme Segpa, conçu pour aider les élèves en difficulté à s'épanouir et à réussir. Chez Collège les Mousseaux, nous croyons en l'importance de l'éducation pour le développement de chaque individu et la prospérité de notre société.",
+      "image": "https://patrimoine.seinesaintdenis.fr/IMG/jpg/mv07_vue_depuis_le_boulevard_ballanger_c_caue93_agnes_paty_dscf9507.jpg"
     },
     {
       "lat": 48.95901659236071,
-      "lng": 2.544364368005043
-    },
+      "lng": 2.544364368005043,
+      "title": "Lieu 2 : Jean Rostand, Paris. Description du lieu 1."
+        },
     {
       "lat": 48.96083250510581,
-      "lng": 2.5428194730675138
+      "lng": 2.5428194730675138,
+      "title": "Lieu 3"
     },
     {
       "lat": 48.96334006261106,
-      "lng": 2.5503223316267305
+      "lng": 2.5503223316267305,
+      "title": "Lieu 4: Explorez Paris lors d’un séjour dans notre B&B HOTEL PARIS Nord Villepinte. En effet, grâce à sa proximité de la capitale, vous pourrez accéder au centre ville de Paris en 45 minutes en voiture, et à l’aéroport Roissy CDG en seulement 15 minutes !",
+      "image": "https://pix10.agoda.net/hotelImages/114814/0/518793e0f96e2c36a8c5f1adced1f5fd.jpg?ca=7&ce=1&s=414x232&ar=16x9"
+
     },
     {
       "lat": 48.96146800531762,
-      "lng": 2.553135524155863
+      "lng": 2.553135524155863,
+      "title": "Lieu 5"
     },
     {
       "lat": 48.95997156116078,
-      "lng": 2.548567662388221
+      "lng": 2.548567662388221,
+      "title": "Lieu 6 "
     }
   ]
